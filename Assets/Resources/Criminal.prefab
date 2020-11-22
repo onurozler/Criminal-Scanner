@@ -9369,9 +9369,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11a905a8c0e510545978e7102679edb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  criminalEquipments:
-    Key: 0
-    Value: {fileID: 0}
+  _hairModels:
+  - Key: 1
+    Value: {fileID: 7811795215188638741}
+  - Key: 3
+    Value: {fileID: 4315642964347213292}
+  - Key: 4
+    Value: {fileID: 236845467820407425}
+  - Key: 5
+    Value: {fileID: 3397111415233400683}
+  - Key: 2
+    Value: {fileID: 7914590073933190769}
+  _beard: {fileID: 1453838049250657406}
 --- !u!95 &7254859456718202501
 Animator:
   serializedVersion: 3

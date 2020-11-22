@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Game.Model.Criminal;
+using Game.Model.Criminal.Appearance;
 using UnityEngine;
 using Zenject;
 
@@ -8,24 +10,31 @@ namespace Game.Behaviour.Criminal
     public class CriminalBehaviourBase : MonoBehaviour
     {
         [SerializeField] 
-        private CriminalEquipments criminalEquipments;
+        private List<CriminalHair> _hairModels;
+
+        [SerializeField] 
+        private GameObject _beard;
+
         private Animator _animator;
-        
+        public Transform Transform { get; private set; }
         public ICriminalData CriminalData { get; private set; }
 
         [Inject]
         private void Initialize(ICriminalData criminalData)
         {
             CriminalData = criminalData;
+            Transform = transform;
             _animator = GetComponent<Animator>();
             
             CriminalData.OnStateChanged += OnOnStateChanged;
-            CriminalData.OnItemsChanged += OnItemsChanged;
+            CriminalData.OnEquipmentsChanged += OnItemsChanged;
         }
 
-        private void OnItemsChanged(List<CriminalEquipmentKey> criminalItems)
+        private void OnItemsChanged(CriminalHairKey criminalHair, bool hasBeard)
         {
-            
+            _hairModels.ForEach(x=> x.Value.SetActive(false));
+            _hairModels.FirstOrDefault(x=> x.Key == criminalHair)?.Value.SetActive(true);
+            _beard.SetActive(hasBeard);
         }
 
         private void OnOnStateChanged(CriminalState oldState, CriminalState newState)
@@ -37,7 +46,7 @@ namespace Game.Behaviour.Criminal
         private void OnDestroy()
         {
             CriminalData.OnStateChanged -= OnOnStateChanged;
-            CriminalData.OnItemsChanged -= OnItemsChanged;
+            CriminalData.OnEquipmentsChanged -= OnItemsChanged;
         }
     }
 }

@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using Game.Model.Criminal.Appearance;
 
 namespace Game.Model.Criminal
 {
     public class CriminalDefaultData : ICriminalData
     {
-        private readonly List<CriminalEquipmentKey> _criminalItems;
         private CriminalState _criminalState;
-        
-        public event Action<List<CriminalEquipmentKey>> OnItemsChanged;
+        public event Action<CriminalHairKey,bool> OnEquipmentsChanged;
         public event Action<CriminalState, CriminalState> OnStateChanged;
 
         public CriminalState State
@@ -24,18 +22,11 @@ namespace Game.Model.Criminal
 
         public CriminalDefaultData()
         {
-            _criminalItems = new List<CriminalEquipmentKey>();
         }
 
-        public void SetItems(params CriminalEquipmentKey[] items)
+        public void SetAppearance(CriminalHairKey criminalHairKey,bool hasBeard)
         {
-            _criminalItems.Clear();
-            foreach (var item in items)
-            {
-                _criminalItems.Add(item);
-            }
-            
-            OnItemsChanged?.Invoke(_criminalItems);
+            OnEquipmentsChanged?.Invoke(criminalHairKey,hasBeard);
         }
     }
 }
