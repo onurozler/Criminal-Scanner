@@ -1,3 +1,4 @@
+using Game.Model.Criminal;
 using UnityEngine;
 
 namespace Helpers

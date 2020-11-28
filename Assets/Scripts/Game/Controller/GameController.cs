@@ -1,4 +1,5 @@
-﻿using Game.Model.Game;
+﻿using Game.Model.Criminal.State;
+using Game.Model.Game;
 using Game.Model.Player;
 using Zenject;
 
@@ -18,6 +19,21 @@ namespace Game.Controller
         public void Initialize()
         {
             _gameData.State = GameState.Started;
+        }
+        
+        public void OnCurrentCriminalStateChanged(CriminalState criminalState)
+        {
+            switch (criminalState)
+            {
+                case CriminalState.Scanning:
+                    _playerData.State = PlayerState.Scanning;
+                    break;
+                case CriminalState.MoveToCenter:
+                case CriminalState.Rotate:
+                case CriminalState.GoOut:
+                    _playerData.State = PlayerState.None;
+                    break;
+            }
         }
     }
 }

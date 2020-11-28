@@ -1,22 +1,16 @@
 ﻿using System;
-using Game.Model.Criminal.Appearance;
+using Game.Model.Criminal.Helpers;
+using Game.Model.HiddenObject;
 
 namespace Game.Model.Criminal
 {
     public interface ICriminalData
     {
+        event Action OnHiddenObjectSet;
         event Action<CriminalHairKey,bool> OnEquipmentsChanged;
-        event Action<CriminalState, CriminalState> OnStateChanged;
-        
-        CriminalState State { get; set; }
-        void SetAppearance(CriminalHairKey criminalHairKey,bool hasBeard);
-    }
 
-    public enum CriminalState
-    {
-        Walking,
-        Turning,
-        APose
+        void SetAppearance(CriminalHairKey criminalHairKey,bool hasBeard);
+        void SetHiddenObjects(HiddenType hiddenType);
     }
     
 }

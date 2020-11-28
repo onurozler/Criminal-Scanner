@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Game.Model.Criminal.Appearance
+namespace Game.Model.Criminal.Helpers
 {
     [Serializable]
     public class CriminalHair

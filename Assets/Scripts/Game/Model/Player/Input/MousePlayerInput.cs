@@ -6,7 +6,7 @@ namespace Game.Model.Player.Input
 {
     public class MousePlayerInput : IPlayerInput
     {
-        public event Action OnClicked;
+        public event Action OnHoldingUp;
         public event Action OnHoldingDown;
 
         public Vector2 Position => UnityInput.mousePosition;
@@ -17,9 +17,9 @@ namespace Game.Model.Player.Input
             {
                 OnHoldingDown?.Invoke();
             }
-            if (UnityInput.GetMouseButtonUp(0))
+            else
             {
-                OnClicked?.Invoke();
+                OnHoldingUp?.Invoke();
             }
         }
     }
