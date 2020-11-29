@@ -15,9 +15,11 @@ namespace Game.Model.Game
             set
             {
                 _level = value;
-                var min = GameConstants.MinHiddenObjectCount + _level;
-                _hiddenCount = Random.Range(min >= GameConstants.MaxHiddenObjectCount ? 
-                    GameConstants.MinHiddenObjectCount : min, GameConstants.MaxHiddenObjectCount);
+                var hiddenCount = GameConstants.MinHiddenObjectCount + _level;
+                hiddenCount = hiddenCount >= GameConstants.MaxHiddenObjectCount
+                    ? GameConstants.MaxHiddenObjectCount
+                    : hiddenCount;
+                _hiddenCount = hiddenCount;
             }
         }
 

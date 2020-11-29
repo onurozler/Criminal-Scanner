@@ -9,10 +9,10 @@ namespace Game.Model.HiddenObject
         private HiddenType _hiddenType;
 
         [SerializeField] 
-        private Sprite _icon;
+        private Material _material;
 
         public HiddenType HiddenType => _hiddenType;
-        public Sprite Icon => _icon;
+        public Material Material => _material;
     }
 
 }

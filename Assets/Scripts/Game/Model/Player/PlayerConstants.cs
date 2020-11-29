@@ -1,3 +1,4 @@
+
 namespace Game.Model.Player
 {
     public static class PlayerConstants

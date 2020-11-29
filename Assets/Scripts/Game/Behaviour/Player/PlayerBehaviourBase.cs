@@ -1,4 +1,5 @@
-﻿using Game.Model.Player;
+﻿using DG.Tweening;
+using Game.Model.Player;
 using Game.Model.Player.Input;
 using UnityEngine;
 using Zenject;
@@ -25,17 +26,12 @@ namespace Game.Behaviour.Player
             Transform = transform;
             
             PlayerData = playerData;      
-            PlayerData.OnStateChanged += OnStateChanged;
 
             _playerInput.OnHoldingDown += OnHoldingDown;
             _playerInput.OnHoldingUp += OnHoldingUp;
             _machineZPosition = MainCamera.WorldToScreenPoint(transform.position).z;
         }
-
-        private void OnStateChanged(PlayerState newState)
-        {
-            
-        }
+        
 
         private void OnHoldingDown()
         {
@@ -66,8 +62,6 @@ namespace Game.Behaviour.Player
 
         private void OnDestroy()
         {
-            PlayerData.OnStateChanged -= OnStateChanged;
-
             _playerInput.OnHoldingDown -= OnHoldingDown;
             _playerInput.OnHoldingUp -= OnHoldingUp;
         }

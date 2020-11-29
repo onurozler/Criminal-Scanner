@@ -33,6 +33,12 @@ namespace Game.Injection
         [SerializeField] 
         private Transform _hiddenPool;
 
+        [SerializeField] 
+        private Material _hiddenMaterial;
+
+        [SerializeField] 
+        private Transform _boxTransform;
+
         private const string HiddenObjectsPath = "HiddenObjects/Prefabs";
         
         public override void InstallBindings()
@@ -40,10 +46,11 @@ namespace Game.Injection
             Container.BindInstance(Camera.main);
             Container.BindInstance(_playerBehaviourBase);
             Container.BindInstance(_playerView);
-            var hiddenObjectPool = new HiddenObjectPoolController();
-            hiddenObjectPool.SetParentAndInitialObjects(_hiddenPool,Resources.LoadAll<HiddenObjectBase>(HiddenObjectsPath).ToList());
+            var hiddenObjectPool = new HiddenObjectPoolController(_hiddenPool,
+                Resources.LoadAll<HiddenObjectBase>(HiddenObjectsPath).ToList(),_hiddenMaterial);
             Container.BindInstance(hiddenObjectPool);
-
+            Container.BindInstance(_boxTransform).WithId("box");
+            
             Container.BindInterfacesAndSelfTo<GameController>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<CriminalController>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<HiddenObjectController>().AsSingle().NonLazy();
@@ -56,15 +63,7 @@ namespace Game.Injection
             Container.Bind<ICriminalData>().To<CriminalDefaultData>().AsTransient().NonLazy();
             Container.Bind<IPlayerData>().To<MyPlayerData>().AsSingle().NonLazy();
             Container.BindInterfacesTo<MousePlayerInput>().AsSingle().NonLazy();
-
-            SetupSignals();
         }
-
-        private void SetupSignals()
-        {
-            SignalBusInstaller.Install(Container);
-
-            Container.DeclareSignal<CriminalState>();
-        }
+        
     }
 }

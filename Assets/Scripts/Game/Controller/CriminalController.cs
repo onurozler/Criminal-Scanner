@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using Game.Behaviour.Criminal;
 using Game.Model.Criminal.State;
 using Game.Model.Game;
@@ -68,7 +69,7 @@ namespace Game.Controller
             if (_currentCriminal.CriminalData.CriminalState == CriminalState.ScanningFront && 
             _playerData.CollectedCount >= _gameData.HiddenFrontCount)
             {
-                _currentCriminal.ChangeState(CriminalState.ScanningBack);
+                DOVirtual.DelayedCall(2f, ()=>_currentCriminal.ChangeState(CriminalState.ScanningBack));
             }
         }
 

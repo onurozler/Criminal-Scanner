@@ -9,14 +9,16 @@ namespace Game.Behaviour.HiddenObject
         private HiddenScriptableObject _hiddenScriptableObject;
 
         private Transform _transform;
+        private MeshRenderer _meshRenderer;
         private HiddenObjectData _hiddenObjectData;
         
         public Transform Transform => _transform ? _transform : _transform = transform;
+        public MeshRenderer MeshRenderer => _meshRenderer ? _meshRenderer : _meshRenderer = GetComponent<MeshRenderer>();
 
         public IHiddenObject HiddenData => _hiddenObjectData ?? (_hiddenObjectData =  new HiddenObjectData
         {
-            Icon = _hiddenScriptableObject.Icon,
-            HiddenType = _hiddenScriptableObject.HiddenType
+            HiddenType = _hiddenScriptableObject.HiddenType,
+            Material = _hiddenScriptableObject.Material
         });
     }
 }

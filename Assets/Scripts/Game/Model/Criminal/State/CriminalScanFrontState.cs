@@ -1,7 +1,6 @@
 using DG.Tweening;
 using Game.Behaviour.Criminal;
 using Game.Model.Criminal.Helpers;
-using Helpers;
 using UnityEngine;
 
 namespace Game.Model.Criminal.State
@@ -9,6 +8,7 @@ namespace Game.Model.Criminal.State
     public class CriminalScanFrontState : ICriminalState
     {
         public virtual CriminalState State => CriminalState.ScanningFront;
+
 
         private readonly BasicCriminalBehaviour _basicCriminalBehaviour;
         
@@ -25,9 +25,6 @@ namespace Game.Model.Criminal.State
                 ? CriminalConstants.Targets.FrontYRotation : CriminalConstants.Targets.BackYRotation), 1f)
                 .OnComplete(()=>
                 {
-                    _basicCriminalBehaviour.CriminalSkeleton.BaseSkeleton.transform.SetLocalPositionZ(
-                        State == CriminalState.ScanningFront ? CriminalConstants.Targets.SkeletonZPosition
-                            : -CriminalConstants.Targets.SkeletonZPosition);
                     _basicCriminalBehaviour.CriminalSkeleton.ActivateHidden(State);
                     _basicCriminalBehaviour.Animator.SetBool(CriminalConstants.Animations.AnimTurning,false);
                     _basicCriminalBehaviour.Animator.SetBool(CriminalConstants.Animations.AnimAPose, true);
@@ -38,5 +35,6 @@ namespace Game.Model.Criminal.State
         {
             _basicCriminalBehaviour.Animator.SetBool(CriminalConstants.Animations.AnimAPose,false);
         }
+        
     }
 }
