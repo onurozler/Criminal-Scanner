@@ -1,18 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Game.Model.HiddenObject
 {
-    [CreateAssetMenu(fileName = "HiddenObject", menuName = "Hidden Object/Create Instance", order = 1)]
-    public class HiddenObjectData : ScriptableObject,IHiddenObject
+    public class HiddenObjectData : IHiddenObject
     {
-        [SerializeField] 
-        private HiddenType _hiddenType;
-
-        [SerializeField] 
-        private Sprite _icon;
-
-        public HiddenType HiddenType => _hiddenType;
-        public Sprite Icon => _icon;
+        public Sprite Icon { get; set; }
+        public HiddenType HiddenType { get; set; }
     }
-
 }

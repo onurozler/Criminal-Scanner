@@ -10,9 +10,10 @@ namespace Game.Model.Criminal.State
 
     public enum CriminalState
     {
+        Idle,
         MoveToCenter,
-        Rotate,
-        Scanning,
+        ScanningFront,
+        ScanningBack,
         GoOut
     }
 }

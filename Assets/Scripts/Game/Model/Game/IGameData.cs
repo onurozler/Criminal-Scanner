@@ -4,6 +4,9 @@ namespace Game.Model.Game
 {
     public interface IGameData 
     {
+        int Level { get; set; }
+        int HiddenTotalCount { get; }
+        int HiddenFrontCount { get; }
         event Action<GameState> OnGameStateChanged;
         GameState State { get; set; }
     }
@@ -11,7 +14,6 @@ namespace Game.Model.Game
     public enum GameState
     {
         Started,
-        Playing,
         Finished
     }
 }

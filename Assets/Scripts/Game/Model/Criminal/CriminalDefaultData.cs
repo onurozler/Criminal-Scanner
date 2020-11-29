@@ -1,15 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using Game.Model.Criminal.Helpers;
-using Game.Model.HiddenObject;
+using Game.Model.Criminal.State;
 
 namespace Game.Model.Criminal
 {
     public class CriminalDefaultData : ICriminalData
     {
-        private List<IHiddenObject> _hiddenObjects;
+        private CriminalState _criminalState;
+        
+        public CriminalState CriminalState
+        {
+            get => _criminalState;
+            set
+            {
+                _criminalState = value;
+                OnStateChanged?.Invoke(_criminalState);
+            } 
+        }
 
-        public event Action OnHiddenObjectSet;
+        public event Action<CriminalState> OnStateChanged;
         public event Action<CriminalHairKey,bool> OnEquipmentsChanged;
 
         public CriminalDefaultData()
@@ -19,11 +28,6 @@ namespace Game.Model.Criminal
         public void SetAppearance(CriminalHairKey criminalHairKey,bool hasBeard)
         {
             OnEquipmentsChanged?.Invoke(criminalHairKey,hasBeard);
-        }
-
-        public void SetHiddenObjects(HiddenType hiddenType)
-        {
-            
         }
     }
 }

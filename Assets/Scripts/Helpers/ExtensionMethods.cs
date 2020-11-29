@@ -1,14 +1,14 @@
-using Game.Model.Criminal;
 using UnityEngine;
 
 namespace Helpers
 {
     public static class ExtensionMethods
     {
-        public static bool IsBetween(this float value, float lower, float top, bool absolute = false)
+        public static void SetLocalPositionZ(this Transform transform, float zPos)
         {
-            value = absolute ? Mathf.Abs(value) : value;
-            return value >= lower && value <= top;
+            var position = transform.localPosition;
+            position.z = zPos;
+            transform.localPosition = position;
         }
     }
 }

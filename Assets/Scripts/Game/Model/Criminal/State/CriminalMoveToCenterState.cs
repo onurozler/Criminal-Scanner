@@ -19,7 +19,7 @@ namespace Game.Model.Criminal.State
         {
             _basicCriminalBehaviour.Animator.SetBool(CriminalConstants.Animations.AnimWalk,true);
             _basicCriminalBehaviour.Transform.DOMove(CriminalConstants.Targets.Middle, 2.5f).SetEase(Ease.Linear)
-                .OnComplete(() => _basicCriminalBehaviour.ChangeCurrentState<CriminalRotateState>());
+                .OnComplete(() => _basicCriminalBehaviour.ChangeState(CriminalState.ScanningFront));
         }
         
         public void Exit()

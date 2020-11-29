@@ -19,31 +19,32 @@ namespace Game.Behaviour.Player
         protected override bool ProcessScanning()
         {
             VisualizeScanning();
-            
-            if(Physics.Raycast(Transform.position,Transform.forward,out var hitInfo,
+            var direction = (Transform.position - MainCamera.transform.position).normalized;
+            if(Physics.Raycast(MainCamera.transform.position,direction,out var hitInfo,
                 PlayerConstants.MaxScanningDistance,HiddenObjectConstants.Layer))
             {
-                if (Vector2.Distance(Transform.position, hitInfo.collider.transform.position) 
+                if (Vector2.Distance(hitInfo.point, hitInfo.collider.transform.position) 
                     < PlayerConstants.HiddenObjectInteractionThreshold)
                 {
                     PlayerData.SetProcess(1);
-                    
                     if (PlayerData.Process >= 100 && hitInfo.collider.TryGetComponent(out HiddenObjectBase hiddenObjectBase))
                     {
+                        PlayerData.SetProcess(-100);
                         PlayerData.State = PlayerState.None;
-                        //_signalBus.Fire(hiddenObjectBase.HiddenData);
+                        PlayerData.AddHiddenObject(hiddenObjectBase.HiddenData);
                     }
 
                     return true;
                 }
             }
-
+            
             return false;
         }
 
         private void VisualizeScanning()
         {
-            Debug.DrawRay(Transform.position,Transform.forward * PlayerConstants.MaxScanningDistance);
+            Debug.DrawRay(MainCamera.transform.position,
+                (Transform.position - MainCamera.transform.position).normalized  * PlayerConstants.MaxScanningDistance);
         }
     }
 }

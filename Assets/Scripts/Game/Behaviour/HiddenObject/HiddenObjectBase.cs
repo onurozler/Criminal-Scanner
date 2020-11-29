@@ -6,8 +6,17 @@ namespace Game.Behaviour.HiddenObject
     public class HiddenObjectBase : MonoBehaviour
     {
         [SerializeField] 
-        private HiddenObjectData _hiddenObjectData;
+        private HiddenScriptableObject _hiddenScriptableObject;
 
-        public IHiddenObject HiddenData => _hiddenObjectData;
+        private Transform _transform;
+        private HiddenObjectData _hiddenObjectData;
+        
+        public Transform Transform => _transform ? _transform : _transform = transform;
+
+        public IHiddenObject HiddenData => _hiddenObjectData ?? (_hiddenObjectData =  new HiddenObjectData
+        {
+            Icon = _hiddenScriptableObject.Icon,
+            HiddenType = _hiddenScriptableObject.HiddenType
+        });
     }
 }

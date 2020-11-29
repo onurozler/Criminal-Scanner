@@ -46,9 +46,10 @@ namespace Game.Injection
 
             Container.BindInterfacesAndSelfTo<GameController>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<CriminalController>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<HiddenObjectController>().AsSingle().NonLazy();
 
             
-            Container.BindMemoryPool<CriminalBehaviourBase, CriminalPoolController>().WithInitialSize(2)
+            Container.BindMemoryPool<CriminalBehaviourBase, CriminalPoolController>().WithInitialSize(3)
                 .FromComponentInNewPrefab(_criminalPrefab).UnderTransform(_criminalPool);
                 
             Container.Bind<IGameData>().To<GameDefaultData>().AsSingle().NonLazy();
@@ -64,10 +65,6 @@ namespace Game.Injection
             SignalBusInstaller.Install(Container);
 
             Container.DeclareSignal<CriminalState>();
-            
-            Container.BindSignal<CriminalState>().
-                ToMethod<GameController>(x => x.OnCurrentCriminalStateChanged).FromResolve();
-
         }
     }
 }

@@ -1,11 +1,14 @@
-﻿using Game.Model.Criminal.State;
+﻿using System;
+using Game.Model.Criminal.State;
 using Game.Model.Game;
+using Game.Model.HiddenObject;
 using Game.Model.Player;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Controller
 {
-    public class GameController : IInitializable
+    public class GameController : IInitializable, IDisposable
     {
         private IPlayerData _playerData;
         private IGameData _gameData;
@@ -14,26 +17,30 @@ namespace Game.Controller
         {
             _playerData = playerData;
             _gameData = gameData;
+            _gameData.OnGameStateChanged += OnGameStateChanged;
         }
-
+        
         public void Initialize()
         {
             _gameData.State = GameState.Started;
         }
-        
-        public void OnCurrentCriminalStateChanged(CriminalState criminalState)
+
+        private void OnGameStateChanged(GameState gameState)
         {
-            switch (criminalState)
+            switch (gameState)
             {
-                case CriminalState.Scanning:
-                    _playerData.State = PlayerState.Scanning;
+                case GameState.Started:
+                    _gameData.Level++;
+                    _playerData.Reset();
                     break;
-                case CriminalState.MoveToCenter:
-                case CriminalState.Rotate:
-                case CriminalState.GoOut:
+                case GameState.Finished:
                     _playerData.State = PlayerState.None;
                     break;
             }
+        }
+        public void Dispose()
+        {
+            _gameData.OnGameStateChanged -= OnGameStateChanged;
         }
     }
 }

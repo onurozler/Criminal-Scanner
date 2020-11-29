@@ -7,7 +7,9 @@ namespace Game.Model.Player
     {
         private float _process;
         private PlayerState _playerState;
+        private int _collected;
 
+        public int CollectedCount => _collected;
         public float Process => _process;
 
         public PlayerState State
@@ -35,9 +37,15 @@ namespace Game.Model.Player
 
         public void AddHiddenObject(IHiddenObject hiddenObject)
         {
+            _collected++;
             OnHiddenObjectFound?.Invoke(hiddenObject);
         }
 
-        
+        public void Reset()
+        {
+            _collected = 0;
+            _playerState = PlayerState.None;
+            _process = 0;
+        }
     }
 }

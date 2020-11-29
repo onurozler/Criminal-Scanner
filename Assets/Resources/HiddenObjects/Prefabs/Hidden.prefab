@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4551281089848183170}
   - component: {fileID: 4490008990546819563}
   - component: {fileID: 3690495625959104330}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hidden
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2437295922017596982}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00016927719, y: 0.63051724, z: 0.8749061}
+  m_LocalPosition: {x: 0.03128089, y: -0.74809265, z: 2.168202}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -106,4 +106,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5658b1a2193fdef4687d1af7bd657391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hiddenObjectData: {fileID: 11400000, guid: 750c9ec0281a0564096ee7616fdd65e8, type: 2}
+  _hiddenScriptableObject: {fileID: 11400000, guid: 750c9ec0281a0564096ee7616fdd65e8,
+    type: 2}

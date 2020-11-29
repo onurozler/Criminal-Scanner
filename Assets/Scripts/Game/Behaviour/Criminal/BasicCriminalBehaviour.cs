@@ -1,45 +1,44 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Model.Criminal.State;
-using Zenject;
 
 namespace Game.Behaviour.Criminal
 {
     public class BasicCriminalBehaviour : CriminalBehaviourBase
     {
-        private SignalBus _signalBus;
         private ICriminalState _currentState;
         private IList<ICriminalState> _criminalStates;
 
-        [Inject]
-        private void Initialize(SignalBus signalBus)
+        protected override void OnInitialized()
         {
-            _signalBus = signalBus;
-            
+            base.OnInitialized();
             _criminalStates = new List<ICriminalState>
             {
+                new CriminalIdleState(this),
                 new CriminalMoveToCenterState(this),
-                new CriminalRotateState(this),
-                new CriminalScanState(this),
+                new CriminalScanFrontState(this),
+                new CriminalScanBackState(this),
                 new CriminalGoOutState(this)
             };
         }
 
         public override void InitializeState()
         {
-            _currentState = _criminalStates[0];
+            _currentState = _criminalStates[1];
             _currentState.Enter();
+            
+            CriminalData.CriminalState = _currentState.State;
         }
 
-        public void ChangeCurrentState<T>() where T : ICriminalState
+        public override void ChangeState(CriminalState criminalState)
         {
             _currentState.Exit();
-            _currentState = _criminalStates.FirstOrDefault(x=> x.GetType() == typeof(T));
+            _currentState = _criminalStates.FirstOrDefault(x=> x.State == criminalState);
             _currentState?.Enter();
 
             if (_currentState != null)
             {
-                _signalBus.Fire(_currentState.State);
+                CriminalData.CriminalState = _currentState.State;
             }
         }
     }
